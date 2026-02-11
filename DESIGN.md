@@ -36,7 +36,7 @@ Inspired by how newhome.butlerfamily.com imports houses: paste a URL, AI does th
 
 - **Tags & categories**: Cuisine (Italian, Mexican, Asian), meal type (breakfast, lunch, dinner, snack), protein (chicken, beef, salmon, vegetarian), effort level (weeknight-easy, weekend-project)
 - **Ratings**: Both of you rate 1-5 stars independently, see each other's ratings
-- **Notes**: Personal notes on a recipe ("Partner likes extra garlic", "halve the salt")
+- **Notes**: Personal notes on a recipe ("Jill likes extra garlic", "halve the salt")
 - **Scaling**: Adjust servings, ingredients recalculate automatically
 - **Cook mode**: Large text, screen stays on, step-by-step with swipe navigation
 - **Seasonal tags**: Auto-tag based on ingredients (summer = grilling, winter = soups)
@@ -108,7 +108,7 @@ Track what you actually cook (vs. just save) and what you rate highly. Over time
 
 Group recipes into themed collections:
 - "Date Night Dinners"
-- "Partner's Favorites"
+- "Jill's Favorites"
 - "Under 30 Minutes"
 - "Impress the Guests"
 - "Meal Prep Sundays"
@@ -157,7 +157,7 @@ Step-by-step cooking assistant:
 
 - Share individual recipes or meal plans with a link
 - Import from friends' Butler Groceries (if they have one)
-- "Partner's mom's lasagna" — attribute recipes to people
+- "Jill's mom's lasagna" — attribute recipes to people
 - Recipe request: "Mom, can you add your meatloaf recipe?"
 
 ### 3.10 🏪 Multi-Store Price Optimization (Ambitious)
@@ -228,7 +228,7 @@ pantry_staples
   id, ingredient_id, always_have (boolean)
 
 users
-  id, name (Lewis/Partner)
+  id, name (Lewis/Jill)
 ```
 
 ### Recipe Import Pipeline

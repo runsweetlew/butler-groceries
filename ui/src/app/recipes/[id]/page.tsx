@@ -462,7 +462,7 @@ export default function RecipeDetailPage() {
 
           <textarea
             className="input mb-3"
-            placeholder="Notes (optional) — e.g., 'Added extra garlic, Partner loved it'"
+            placeholder="Notes (optional) — e.g., 'Added extra garlic, Jill loved it'"
             value={ratingNotes}
             onChange={(e) => setRatingNotes(e.target.value)}
             rows={2}

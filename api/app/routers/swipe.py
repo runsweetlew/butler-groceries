@@ -128,7 +128,7 @@ async def get_session(session_id: int, user_id: int = Query(...), db: AsyncSessi
     )
     your_progress = your_result.scalar() or 0
 
-    # Partner progress
+    # Jill's progress
     partner_result = await db.execute(
         select(func.count(SwipeCard.id)).where(
             and_(

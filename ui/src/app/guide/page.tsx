@@ -141,7 +141,7 @@ const STEPS = [
           <ul className="space-y-1 ml-4">
             <li>⭐ Rate 1-5 stars</li>
             <li>🔄 Would you make it again?</li>
-            <li>📝 Add notes (&quot;needs more garlic&quot;, &quot;Partner loved it&quot;)</li>
+            <li>📝 Add notes (&quot;needs more garlic&quot;, &quot;Jill loved it&quot;)</li>
             <li>🧠 Ratings feed into the AI taste learner</li>
             <li>👫 See both ratings on the recipe page</li>
           </ul>

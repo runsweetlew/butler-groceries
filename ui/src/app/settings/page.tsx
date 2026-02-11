@@ -395,7 +395,7 @@ function TasteTab({ currentUser, users }: { currentUser: any; users: any[] }) {
       {/* Comparison */}
       {comparison?.agreements?.length > 0 && (
         <div className="card p-5">
-          <h3 className="font-semibold mb-3">👫 You & Your Partner</h3>
+          <h3 className="font-semibold mb-3">👫 You & Jill</h3>
 
           {comparison.agreements.length > 0 && (
             <div className="mb-4">

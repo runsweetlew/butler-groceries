@@ -76,7 +76,7 @@ Access at `http://localhost:3000` (UI) and `http://localhost:8080/docs` (API).
 ## Default Data
 
 On first start, the app seeds:
-- **Users**: Lewis 👨‍🍳, Partner 👩‍🍳
+- **Users**: Lewis 👨‍🍳, Jill 👩‍🍳
 - **Rules**: Chicken max 2x/week, Salmon 1x/2 weeks, Beef max 2x/week, No repeats within 14 days, 2 veggie nights/week
 - **Pantry staples**: Salt, pepper, olive oil, garlic, onion, etc.
 
