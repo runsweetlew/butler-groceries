@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 from app.config import get_settings
 
-logger = logging.getLogger("dukecook.database")
+logger = logging.getLogger("butlergroceries.database")
 
 settings = get_settings()
 
@@ -45,7 +45,7 @@ async def init_db():
             SwipeSession, SwipeCard, SwipeMatch,
             TasteProfile, TastePreference, CookingHistory,
             ShoppingList, ShoppingItem, PantryStaple,
-            CalendarEvent, ImportLog, KrogerToken,
+            CalendarEvent, ImportLog, MeijerToken,
         )
         await conn.run_sync(Base.metadata.create_all)
     logger.info("Database tables created successfully")

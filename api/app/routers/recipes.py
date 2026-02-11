@@ -11,7 +11,7 @@ from app.models import Recipe, RecipeIngredient, RecipeStep, Tag, RecipeTag, Rat
 from app.schemas import RecipeCreate, RecipeUpdate, RecipeSummary, RecipeDetail, TagOut, IngredientOut, StepOut, RatingOut
 from app.services.recipe_importer import get_or_create_tag, get_or_create_ingredient
 
-logger = logging.getLogger("dukecook.routers.recipes")
+logger = logging.getLogger("butlergroceries.routers.recipes")
 router = APIRouter(prefix="/api/recipes", tags=["recipes"])
 
 

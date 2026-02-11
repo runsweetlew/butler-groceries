@@ -12,7 +12,7 @@ from app.database import get_db
 from app.models import Recipe, RecipeStep, RecipeIngredient, Ingredient
 from app.schemas import CookAlongSession, StepOut
 
-logger = logging.getLogger("dukecook.routers.cookalong")
+logger = logging.getLogger("butlergroceries.routers.cookalong")
 router = APIRouter(prefix="/api/cookalong", tags=["cookalong"])
 
 

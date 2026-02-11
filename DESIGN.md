@@ -1,6 +1,6 @@
-# DukeCook — Recipe & Meal Planning App
+# Butler Groceries — Recipe & Meal Planning App
 
-A personal cooking app for Trevor and Emily. Import recipes from the web (like newhome does for houses), plan meals around your real calendar, and enforce dietary rules automatically.
+A personal cooking app for the Butler family. Import recipes from the web (like newhome does for houses), plan meals around your real calendar, and enforce dietary rules automatically.
 
 ---
 
@@ -16,7 +16,7 @@ A personal cooking app for Trevor and Emily. Import recipes from the web (like n
 
 ### 2.1 Recipe Import (à la newhome)
 
-Inspired by how newhome.trevorduke.com imports houses: paste a URL, AI does the rest.
+Inspired by how newhome.butlerfamily.com imports houses: paste a URL, AI does the rest.
 
 | Source | How It Works |
 |--------|-------------|
@@ -24,7 +24,7 @@ Inspired by how newhome.trevorduke.com imports houses: paste a URL, AI does the 
 | **Bulk import** | Paste multiple URLs at once (one per line) |
 | **Manual entry** | Full editor for family recipes, handwritten cards, etc. |
 | **Photo import** | Snap a photo of a recipe card/cookbook page → OCR + AI extraction |
-| **Share sheet** | iOS/Android share target — share from any app directly to DukeCook |
+| **Share sheet** | iOS/Android share target — share from any app directly to Butler Groceries |
 
 **Supported sites** (via structured data + AI fallback):
 - NYT Cooking, Bon Appétit, Serious Eats, AllRecipes, Food Network
@@ -36,7 +36,7 @@ Inspired by how newhome.trevorduke.com imports houses: paste a URL, AI does the 
 
 - **Tags & categories**: Cuisine (Italian, Mexican, Asian), meal type (breakfast, lunch, dinner, snack), protein (chicken, beef, salmon, vegetarian), effort level (weeknight-easy, weekend-project)
 - **Ratings**: Both of you rate 1-5 stars independently, see each other's ratings
-- **Notes**: Personal notes on a recipe ("Emily likes extra garlic", "halve the salt")
+- **Notes**: Personal notes on a recipe ("Partner likes extra garlic", "halve the salt")
 - **Scaling**: Adjust servings, ingredients recalculate automatically
 - **Cook mode**: Large text, screen stays on, step-by-step with swipe navigation
 - **Seasonal tags**: Auto-tag based on ingredients (summer = grilling, winter = soups)
@@ -82,7 +82,7 @@ Auto-generated from the meal plan:
 - **Pantry awareness**: Check off staples you always have (oil, salt, garlic, rice)
 - **Aisle grouping**: Organize by store section (produce, dairy, meat, pantry)
 - **Share & check off**: Both users see the same list, real-time sync at the store
-- **Store integration** (future): Kroger/Instacart API for price estimates or ordering
+- **Store integration**: Meijer API for price lookup, shopping list sync, and aisle organization
 
 ---
 
@@ -108,7 +108,7 @@ Track what you actually cook (vs. just save) and what you rate highly. Over time
 
 Group recipes into themed collections:
 - "Date Night Dinners"
-- "Emily's Favorites"
+- "Partner's Favorites"
 - "Under 30 Minutes"
 - "Impress the Guests"
 - "Meal Prep Sundays"
@@ -156,15 +156,15 @@ Step-by-step cooking assistant:
 ### 3.9 🔗 Social / Sharing
 
 - Share individual recipes or meal plans with a link
-- Import from friends' DukeCook (if they have one)
-- "Emily's mom's lasagna" — attribute recipes to people
+- Import from friends' Butler Groceries (if they have one)
+- "Partner's mom's lasagna" — attribute recipes to people
 - Recipe request: "Mom, can you add your meatloaf recipe?"
 
 ### 3.10 🏪 Multi-Store Price Optimization (Ambitious)
 
 - Know which store has better prices for certain items
 - Split shopping list by store
-- Kroger/Meijer API integration for actual prices
+- Meijer API integration for actual prices
 - "This week's meal plan costs ~$87 in groceries"
 
 ---
@@ -183,7 +183,7 @@ Following the same pattern as other Duke projects (DukeCam, newhome, aireis):
 | **AI** | Claude API | Recipe extraction, meal suggestions, taste learning |
 | **Calendar** | Google Calendar API | Read-only access to check availability |
 | **Hosting** | Framework Docker | Same infra as DukeCam, aireis |
-| **Domain** | `cook.trevorduke.com` or `dukecook.trevorduke.com` | Via Cloudflare tunnel |
+| **Domain** | `groceries.butlerfamily.com` or `groceries.butlerfamily.com` | Via Cloudflare tunnel |
 | **Mobile** | PWA | Installable, works offline (like DukeCam) |
 
 ### Data Model (Simplified)
@@ -228,7 +228,7 @@ pantry_staples
   id, ingredient_id, always_have (boolean)
 
 users
-  id, name (Trevor/Emily)
+  id, name (Lewis/Partner)
 ```
 
 ### Recipe Import Pipeline
@@ -264,7 +264,7 @@ Get these working first:
 7. ✅ AI meal suggestions respecting rules
 8. ✅ Auto-generated shopping list from plan
 9. ✅ PWA (installable on phone)
-10. ✅ Two-user system (Trevor & Emily)
+10. ✅ Two-user system (the Butler family)
 
 ### Phase 2 (Fast Follow)
 - Cook-along mode with timers
@@ -293,9 +293,9 @@ Get these working first:
 | **Plan to Eat** | Popular paid | Best meal planning UX, drag-and-drop | $5/mo subscription, no AI, no calendar |
 | **Mealime** | Popular free | Beautiful, dietary profiles, quick meals | Not self-hosted, limited recipe import, no rules engine |
 | **Yummly** | Millions | AI recommendations, huge recipe DB | Ad-heavy, not self-hosted, no calendar, no couple features |
-| **DukeCook** | Just us 😎 | Calendar-aware, rules engine, AI suggestions, couple-focused, self-hosted, free | We have to build it |
+| **Butler Groceries** | Just us 😎 | Calendar-aware, rules engine, AI suggestions, couple-focused, self-hosted, free | We have to build it |
 
-**DukeCook's unique advantages:**
+**Butler Groceries's unique advantages:**
 1. **Calendar awareness** — No other app checks your actual calendar
 2. **Couple-focused** — Dual ratings, shared planning, "both swipe" features
 3. **AI-first** — Not bolted on, AI is core to import + planning + suggestions
@@ -310,5 +310,5 @@ Get these working first:
 - [ ] Google Calendar — use service account or OAuth per user?
 - [ ] Recipe schema: use Mealie's recipe-scraper library? (Python, well-maintained)
 - [ ] Nutritional data: worth including? (adds complexity but useful for health tracking)
-- [ ] Multiple households: just Trevor+Emily, or design for sharing with family?
-- [ ] Name: DukeCook? DukeEats? Something else?
+- [ ] Multiple households: just the Butler family, or design for sharing with family?
+- [ ] Name: Butler Groceries? DukeEats? Something else?

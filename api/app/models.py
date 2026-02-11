@@ -1,4 +1,4 @@
-"""SQLAlchemy models for DukeCook."""
+"""SQLAlchemy models for Butler Groceries."""
 
 from datetime import datetime, date
 from sqlalchemy import (
@@ -397,18 +397,18 @@ class CalendarEvent(Base):
     )
 
 
-# ---------- Kroger Integration ----------
+# ---------- Meijer Integration ----------
 
-class KrogerToken(Base):
-    """Store Kroger OAuth tokens per user."""
-    __tablename__ = "kroger_tokens"
+class MeijerToken(Base):
+    """Store Meijer auth tokens per user (captured via mitmproxy)."""
+    __tablename__ = "meijer_tokens"
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True, nullable=False)
     access_token = Column(Text, nullable=False)
-    refresh_token = Column(Text, nullable=False)
-    expires_at = Column(DateTime, nullable=False)
-    store_id = Column(String(20), default="01800661")
+    refresh_token = Column(Text, default="")
+    expires_at = Column(DateTime, nullable=True)
+    store_id = Column(String(20), default="217")
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 

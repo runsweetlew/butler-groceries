@@ -20,7 +20,7 @@ from app.schemas import (
     SwipeAction, SwipeMatchOut, RecipeSummary, TagOut,
 )
 
-logger = logging.getLogger("dukecook.routers.swipe")
+logger = logging.getLogger("butlergroceries.routers.swipe")
 router = APIRouter(prefix="/api/swipe", tags=["swipe"])
 
 
@@ -63,7 +63,7 @@ async def create_session(data: SwipeSessionCreate, db: AsyncSession = Depends(ge
     db.add(session)
     await db.flush()
 
-    # Create cards for the couple only (Trevor & Emily)
+    # Create cards for the couple only (the Butler family)
     COUPLE_IDS = [1, 2]
     users_result = await db.execute(select(User).where(User.id.in_(COUPLE_IDS)))
     users = users_result.scalars().all()

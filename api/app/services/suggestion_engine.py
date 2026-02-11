@@ -16,7 +16,7 @@ from app.config import get_settings
 from app.models import Recipe, RecipeTag, Tag, Rating, MealPlan, CookingHistory, TasteProfile
 from app.services.rules_engine import get_active_rules, evaluate_rules
 
-logger = logging.getLogger("dukecook.services.suggestion_engine")
+logger = logging.getLogger("butlergroceries.services.suggestion_engine")
 
 
 async def suggest_meals(

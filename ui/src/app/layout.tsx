@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#F97316" />
         <link rel="manifest" href="/manifest.json" />
-        <title>DukeCook</title>
+        <title>Butler Groceries</title>
       </head>
       <body>
         <I18nProvider>
@@ -45,7 +45,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     getUsers().then((u) => {
       setUsers(u);
-      const saved = document.cookie.match(/dukecook_user=(\d+)/);
+      const saved = document.cookie.match(/butlergroceries_user=(\d+)/);
       if (saved) {
         const savedUser = u.find((x: any) => x.id === parseInt(saved[1]));
         if (savedUser) setCurrentUser(savedUser);
@@ -55,7 +55,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
   const selectUser = (user: any) => {
     setCurrentUser(user);
-    document.cookie = `dukecook_user=${user.id};path=/;max-age=31536000`;
+    document.cookie = `butlergroceries_user=${user.id};path=/;max-age=31536000`;
   };
 
   // User selection screen
@@ -66,7 +66,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex justify-center mb-4">
             <LanguageToggle />
           </div>
-          <h1 className="text-4xl font-bold text-brand-700 mb-2">🍳 DukeCook</h1>
+          <h1 className="text-4xl font-bold text-brand-700 mb-2">🍳 Butler Groceries</h1>
           <p className="text-gray-500 mb-8">{t('who_cooking')}</p>
           <div className="flex gap-6">
             {users.map((user) => (
@@ -92,7 +92,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl">🍳</span>
-            <span className="font-bold text-brand-700 text-lg">DukeCook</span>
+            <span className="font-bold text-brand-700 text-lg">Butler Groceries</span>
           </Link>
 
           {/* Desktop nav */}
@@ -115,7 +115,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
             {currentUser && (
               <button
                 onClick={() => {
-                  document.cookie = 'dukecook_user=;path=/;max-age=0';
+                  document.cookie = 'butlergroceries_user=;path=/;max-age=0';
                   setCurrentUser(null);
                 }}
                 className="text-2xl hover:scale-110 transition-transform"

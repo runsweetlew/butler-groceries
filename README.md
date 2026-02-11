@@ -1,6 +1,6 @@
-# DukeCook 🍳
+# Butler Groceries 🍳
 
-Recipe & Meal Planning for Trevor & Emily.
+Recipe & Meal Planning for the Butler family.
 
 ## Quick Start
 
@@ -59,23 +59,24 @@ docker compose up -d --build
 
 Full API docs at `/docs` when running.
 
-## Deploying to Framework
+## Running Locally
 
 ```bash
-# Sync to Framework
-rsync -avz --delete --exclude node_modules --exclude .next --exclude __pycache__ --exclude .git \
-  ~/claudecode/projects/dukecook/ framework-remote:~/dukecook/
+# Start all services
+docker compose up -d --build
 
-# Build and run
-ssh framework-remote "cd ~/dukecook && docker compose up -d --build"
+# View logs
+docker compose logs -f
+
+# Stop
+docker compose down
 ```
 
-Then set up Cloudflare tunnel for `cook.trevorduke.com`.
-
+Access at `http://localhost:3000` (UI) and `http://localhost:8080/docs` (API).
 ## Default Data
 
 On first start, the app seeds:
-- **Users**: Trevor 👨‍🍳, Emily 👩‍🍳
+- **Users**: Lewis 👨‍🍳, Partner 👩‍🍳
 - **Rules**: Chicken max 2x/week, Salmon 1x/2 weeks, Beef max 2x/week, No repeats within 14 days, 2 veggie nights/week
 - **Pantry staples**: Salt, pepper, olive oil, garlic, onion, etc.
 
@@ -83,7 +84,7 @@ On first start, the app seeds:
 
 All backend logs are structured JSON:
 ```json
-{"timestamp": "...", "level": "INFO", "logger": "dukecook.services.recipe_importer", "message": "Recipe imported: Lemon Herb Salmon", "request_id": "a3f2dd01", "user": "1", "data": {"recipe_id": 5, "url": "...", "method": "schema", "duration_ms": 1234}}
+{"timestamp": "...", "level": "INFO", "logger": "butlergroceries.services.recipe_importer", "message": "Recipe imported: Lemon Herb Salmon", "request_id": "a3f2dd01", "user": "1", "data": {"recipe_id": 5, "url": "...", "method": "schema", "duration_ms": 1234}}
 ```
 
 View logs: `docker compose logs -f api`

@@ -16,7 +16,7 @@ from app.services.rules_engine import evaluate_rules, get_rule_status_for_week
 from app.services.suggestion_engine import suggest_meals
 from app.services.ha_calendar import fetch_ha_events
 
-logger = logging.getLogger("dukecook.routers.planner")
+logger = logging.getLogger("butlergroceries.routers.planner")
 router = APIRouter(prefix="/api/planner", tags=["planner"])
 
 

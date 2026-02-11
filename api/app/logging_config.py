@@ -1,4 +1,4 @@
-"""Structured logging configuration for DukeCook.
+"""Structured logging configuration for Butler Groceries.
 
 All log output is JSON-formatted for easy parsing and troubleshooting.
 Every request gets a unique request_id for tracing.
@@ -63,10 +63,10 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         request_id_var.set(rid)
 
         # Extract user from header or cookie
-        user = request.headers.get("X-User", "") or request.cookies.get("dukecook_user", "-")
+        user = request.headers.get("X-User", "") or request.cookies.get("butlergroceries_user", "-")
         current_user_var.set(user)
 
-        logger = logging.getLogger("dukecook.http")
+        logger = logging.getLogger("butlergroceries.http")
         start_time = time.time()
 
         logger.info(
@@ -133,6 +133,6 @@ def setup_logging(log_level: str = "INFO"):
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
 
-    logger = logging.getLogger("dukecook")
+    logger = logging.getLogger("butlergroceries")
     logger.info(f"Logging initialized at {log_level} level")
     return logger

@@ -11,7 +11,7 @@ from app.models import ShoppingList, ShoppingItem, PantryStaple
 from app.schemas import ShoppingListOut, ShoppingItemUpdate, GenerateListRequest
 from app.services.shopping_generator import generate_shopping_list
 
-logger = logging.getLogger("dukecook.routers.shopping")
+logger = logging.getLogger("butlergroceries.routers.shopping")
 router = APIRouter(prefix="/api/shopping", tags=["shopping"])
 
 

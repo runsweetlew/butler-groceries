@@ -1,4 +1,4 @@
-"""DukeCook API — Recipe & Meal Planning for Trevor & Emily."""
+"""Butler Groceries API — Recipe & Meal Planning for the Butler family."""
 
 import logging
 from contextlib import asynccontextmanager
@@ -15,13 +15,13 @@ settings = get_settings()
 
 # Initialize logging first
 setup_logging(settings.log_level)
-logger = logging.getLogger("dukecook.main")
+logger = logging.getLogger("butlergroceries.main")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown events."""
-    logger.info("🍳 DukeCook starting up...")
+    logger.info("🍳 Butler Groceries starting up...")
 
     # Create database tables
     await init_db()
@@ -32,14 +32,14 @@ async def lifespan(app: FastAPI):
     # Ensure image directory exists
     Path(settings.image_dir).mkdir(parents=True, exist_ok=True)
 
-    logger.info("✅ DukeCook ready!")
+    logger.info("✅ Butler Groceries ready!")
     yield
-    logger.info("👋 DukeCook shutting down...")
+    logger.info("👋 Butler Groceries shutting down...")
 
 
 app = FastAPI(
-    title="DukeCook",
-    description="Recipe & Meal Planning for Trevor & Emily",
+    title="Butler Groceries",
+    description="Recipe & Meal Planning for the Butler family",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -63,7 +63,7 @@ image_dir.mkdir(parents=True, exist_ok=True)
 app.mount("/images", StaticFiles(directory=str(image_dir)), name="images")
 
 # Register routers
-from app.routers import recipes, import_recipe, planner, rules, swipe, ratings, cookalong, shopping, users, taste, homeassistant, kroger
+from app.routers import recipes, import_recipe, planner, rules, swipe, ratings, cookalong, shopping, users, taste, homeassistant, meijer
 
 app.include_router(users.router)
 app.include_router(recipes.router)
@@ -76,13 +76,13 @@ app.include_router(cookalong.router)
 app.include_router(shopping.router)
 app.include_router(taste.router)
 app.include_router(homeassistant.router)
-app.include_router(kroger.router)
+app.include_router(meijer.router)
 
 
 @app.get("/api/health")
 async def health():
     """Health check endpoint."""
-    return {"status": "ok", "app": "DukeCook", "version": "1.0.0"}
+    return {"status": "ok", "app": "Butler Groceries", "version": "1.0.0"}
 
 
 async def seed_defaults():
@@ -99,9 +99,9 @@ async def seed_defaults():
         existing = result.scalars().all()
 
         if not existing:
-            logger.info("Seeding default users: Trevor, Emily & Carolina")
-            db.add(User(name="Trevor", avatar_emoji="👨‍🍳"))
-            db.add(User(name="Emily", avatar_emoji="👩‍🍳"))
+            logger.info("Seeding default users: Lewis, Partner & Carolina")
+            db.add(User(name="Lewis", avatar_emoji="👨‍🍳"))
+            db.add(User(name="Partner", avatar_emoji="👩‍🍳"))
             db.add(User(name="Carolina", avatar_emoji="🌸"))
             await db.commit()
 

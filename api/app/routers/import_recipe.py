@@ -15,7 +15,7 @@ from app.schemas import ImportRequest, BulkImportRequest, ImportResult
 from app.services.recipe_importer import import_recipe_from_url, save_recipe_data
 from app.services.ai_extractor import extract_recipe_from_image, enrich_recipe_tags
 
-logger = logging.getLogger("dukecook.routers.import_recipe")
+logger = logging.getLogger("butlergroceries.routers.import_recipe")
 router = APIRouter(prefix="/api/recipes", tags=["import"])
 
 # In-memory job tracker for background imports

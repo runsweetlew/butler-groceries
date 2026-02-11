@@ -98,21 +98,21 @@ export default function ShoppingPage() {
             </div>
           </div>
 
-          {/* 🛒 Order from Kroger */}
+          {/* 🛒 Shop at Meijer */}
           {list.items?.length > 0 && (() => {
             const uncheckedItems = list.items.filter((i: any) => !i.checked);
             if (uncheckedItems.length === 0) return null;
             return (
               <div className="card p-4 bg-blue-50 border-blue-200">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-blue-800 text-sm">🛒 Shop at Kroger</h3>
+                  <h3 className="font-semibold text-blue-800 text-sm">🛒 Shop at Meijer</h3>
                   <span className="text-xs text-blue-600">{uncheckedItems.length} items remaining</span>
                 </div>
                 <div className="space-y-1 mb-3">
                   {uncheckedItems.map((item: any) => (
                     <a
                       key={item.id}
-                      href={`https://www.kroger.com/search?query=${encodeURIComponent(item.name)}&searchType=default_search`}
+                      href={`https://www.meijer.com/shopping/search.html?s=${encodeURIComponent(item.name)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm"

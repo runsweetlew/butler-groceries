@@ -3,7 +3,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getRecipe, deleteRecipe, createRating, getKrogerStatus, matchRecipeToKroger, addRecipeToKrogerCart, archiveRecipe, unarchiveRecipe } from '@/lib/api';
+import { getRecipe, deleteRecipe, createRating, getMeijerStatus, matchRecipeToMeijer, addRecipeToMeijerList, archiveRecipe, unarchiveRecipe } from '@/lib/api';
 import { UserContext } from '@/lib/user-context';
 import { useI18n } from '@/lib/i18n';
 
@@ -48,11 +48,11 @@ export default function RecipeDetailPage() {
   const [ratingNotes, setRatingNotes] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [showOriginal, setShowOriginal] = useState(false);
-  const [krogerStatus, setKrogerStatus] = useState<any>(null);
-  const [krogerMatch, setKrogerMatch] = useState<any>(null);
-  const [krogerLoading, setKrogerLoading] = useState(false);
-  const [krogerCartResult, setKrogerCartResult] = useState<any>(null);
-  const [showKrogerDetails, setShowKrogerDetails] = useState(false);
+  const [meijerStatus, setMeijerStatus] = useState<any>(null);
+  const [meijerMatch, setMeijerMatch] = useState<any>(null);
+  const [meijerLoading, setMeijerLoading] = useState(false);
+  const [meijerListResult, setMeijerListResult] = useState<any>(null);
+  const [showMeijerDetails, setShowMeijerDetails] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -60,9 +60,9 @@ export default function RecipeDetailPage() {
     }
   }, [params.id]);
 
-  // Check Kroger connection status
+  // Check Meijer connection status
   useEffect(() => {
-    getKrogerStatus(currentUser?.id || 1).then(setKrogerStatus).catch(() => null);
+    getMeijerStatus(currentUser?.id || 1).then(setMeijerStatus).catch(() => null);
   }, [currentUser]);
 
   const handleDelete = async () => {
@@ -192,38 +192,32 @@ export default function RecipeDetailPage() {
         </div>
       )}
 
-      {/* 🛒 Kroger One-Click Cart */}
+      {/* 🛒 Meijer Shopping List */}
       {recipe.ingredients?.length > 0 && (
         <div className="card p-5 bg-blue-50 border-blue-200">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-blue-800">🛒 {t('kroger.title')}</h3>
-            {krogerStatus?.connected && (
+            <h3 className="font-semibold text-blue-800">🛒 {t('meijer.title')}</h3>
+            {meijerStatus?.connected && (
               <span className="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                ✓ {krogerStatus.first_name || krogerStatus.email || t('kroger.connected')}
+                ✓ {t('meijer.connected')}
               </span>
             )}
           </div>
 
-          {/* Not connected — show connect button */}
-          {krogerStatus && !krogerStatus.connected && (
+          {/* Not connected — show setup info */}
+          {meijerStatus && !meijerStatus.connected && (
             <div className="text-center py-3">
-              <p className="text-sm text-gray-600 mb-3">{t('kroger.connect_desc')}</p>
-              <a
-                href={`/api/kroger/connect?user_id=${currentUser?.id || 1}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-              >
-                {t('kroger.connect_btn')}
-              </a>
+              <p className="text-sm text-gray-600 mb-3">{t('meijer.connect_desc')}</p>
             </div>
           )}
 
-          {/* Connected — show one-click add to cart */}
-          {krogerStatus?.connected && !krogerCartResult && (
+          {/* Connected — show one-click add to list */}
+          {meijerStatus?.connected && !meijerListResult && (
             <div>
               {/* Preview matches if loaded */}
-              {krogerMatch && showKrogerDetails && (
+              {meijerMatch && showMeijerDetails && (
                 <div className="mb-3 space-y-1.5 max-h-64 overflow-y-auto">
-                  {krogerMatch.items.map((item: any, idx: number) => (
+                  {meijerMatch.items.map((item: any, idx: number) => (
                     <div key={idx} className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-sm ${item.matched ? 'bg-white border border-blue-200' : 'bg-red-50 border border-red-200'}`}>
                       <div className="flex items-center gap-2 min-w-0">
                         <span>{item.matched ? '✅' : '❌'}</span>
@@ -239,7 +233,7 @@ export default function RecipeDetailPage() {
                     </div>
                   ))}
                   <div className="text-right text-sm font-medium text-blue-800 pt-1">
-                    Est. total: ${krogerMatch.estimated_cost?.toFixed(2)}
+                    Est. total: ${meijerMatch.estimated_cost?.toFixed(2)}
                   </div>
                 </div>
               )}
@@ -247,85 +241,75 @@ export default function RecipeDetailPage() {
               <div className="flex gap-2">
                 <button
                   onClick={async () => {
-                    setKrogerLoading(true);
+                    setMeijerLoading(true);
                     try {
-                      // Match + add to cart in one shot
-                      const result = await addRecipeToKrogerCart(recipe.id, currentUser?.id || 1);
-                      setKrogerCartResult(result);
+                      const result = await addRecipeToMeijerList(recipe.id, currentUser?.id || 1);
+                      setMeijerListResult(result);
                     } catch (e: any) {
                       if (e.message?.includes('401')) {
-                        // Token expired, need to reconnect
-                        setKrogerStatus({ connected: false });
+                        setMeijerStatus({ connected: false });
                       } else {
-                        alert(e.message || 'Failed to add to cart');
+                        alert(e.message || 'Failed to add to list');
                       }
                     } finally {
-                      setKrogerLoading(false);
+                      setMeijerLoading(false);
                     }
                   }}
-                  disabled={krogerLoading}
+                  disabled={meijerLoading}
                   className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                 >
-                  {krogerLoading ? (
-                    <>{t('kroger.adding')}</>
+                  {meijerLoading ? (
+                    <>{t('meijer.adding')}</>
                   ) : (
-                    <>{t('kroger.add_all')}</>
+                    <>{t('meijer.add_all')}</>
                   )}
                 </button>
                 <button
                   onClick={async () => {
-                    if (!krogerMatch) {
-                      setKrogerLoading(true);
+                    if (!meijerMatch) {
+                      setMeijerLoading(true);
                       try {
-                        const match = await matchRecipeToKroger(recipe.id);
-                        setKrogerMatch(match);
-                        setShowKrogerDetails(true);
+                        const match = await matchRecipeToMeijer(recipe.id);
+                        setMeijerMatch(match);
+                        setShowMeijerDetails(true);
                       } catch (e) {}
-                      setKrogerLoading(false);
+                      setMeijerLoading(false);
                     } else {
-                      setShowKrogerDetails(!showKrogerDetails);
+                      setShowMeijerDetails(!showMeijerDetails);
                     }
                   }}
                   className="px-3 py-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm"
                   title="Preview ingredient matches"
                 >
-                  {showKrogerDetails ? '▲' : '▼'}
+                  {showMeijerDetails ? '▲' : '▼'}
                 </button>
               </div>
               <p className="text-xs text-blue-600 mt-2">
-                {t('kroger.auto_match')}
+                {t('meijer.auto_match')}
               </p>
             </div>
           )}
 
           {/* Success state — show matched products with links */}
-          {krogerCartResult && (
+          {meijerListResult && (
             <div className="py-2">
               <div className="flex items-center justify-between mb-3">
                 <p className="font-medium text-blue-800">
-                  {krogerCartResult.added} {t('kroger.items')} · ~${krogerCartResult.estimated_cost?.toFixed(2)}
+                  {meijerListResult.added} {t('meijer.items')} · ~${meijerListResult.estimated_cost?.toFixed(2)}
                 </p>
-                <a
-                  href="https://www.kroger.com/cart"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs font-medium"
-                >
-                  {t('kroger.open_cart_short')}
-                </a>
               </div>
 
-              {/* Product list with direct Kroger links */}
+              {/* Product list with Meijer search links */}
               <div className="space-y-1.5 max-h-72 overflow-y-auto mb-3">
-                {krogerCartResult.items?.map((item: any, idx: number) => (
+                {meijerListResult.items?.map((item: any, idx: number) => (
                   <a
                     key={idx}
-                    href={item.matched ? (item.product_url || item.search_url) : undefined}
+                    href={item.matched ? item.search_url : undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
-                      item.matched 
-                        ? 'bg-white border border-blue-200 hover:bg-blue-50 cursor-pointer' 
+                      item.matched
+                        ? 'bg-white border border-blue-200 hover:bg-blue-50 cursor-pointer'
                         : 'bg-red-50 border border-red-200'
                     }`}
                   >
@@ -349,30 +333,20 @@ export default function RecipeDetailPage() {
                 ))}
               </div>
 
-              {krogerCartResult.skipped?.length > 0 && (
+              {meijerListResult.skipped?.length > 0 && (
                 <p className="text-xs text-amber-600 mb-2">
-                  ⚠️ Not found: {krogerCartResult.skipped.join(', ')}
+                  Not found: {meijerListResult.skipped.join(', ')}
                 </p>
               )}
 
-              <div className="flex gap-2">
-                <a
-                  href="https://www.kroger.com/cart"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  {t('kroger.open_cart')}
-                </a>
-                <button
-                  onClick={() => setKrogerCartResult(null)}
-                  className="px-4 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm"
-                >
-                  ✕
-                </button>
-              </div>
+              <button
+                onClick={() => setMeijerListResult(null)}
+                className="px-4 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+              >
+                ✕ Close
+              </button>
               <p className="text-xs text-gray-500 mt-2 text-center">
-                {t('kroger.tap_item')}
+                {t('meijer.tap_item')}
               </p>
             </div>
           )}
@@ -387,7 +361,7 @@ export default function RecipeDetailPage() {
 
         if (ingredients.length === 0) return null;
 
-        const ASSOCIATE_TAG = 'trevordukeco-20';
+        const ASSOCIATE_TAG = '';
 
         return (
           <div className="card p-5 bg-green-50 border-green-200">
@@ -488,7 +462,7 @@ export default function RecipeDetailPage() {
 
           <textarea
             className="input mb-3"
-            placeholder="Notes (optional) — e.g., 'Added extra garlic, Emily loved it'"
+            placeholder="Notes (optional) — e.g., 'Added extra garlic, Partner loved it'"
             value={ratingNotes}
             onChange={(e) => setRatingNotes(e.target.value)}
             rows={2}
@@ -508,7 +482,7 @@ export default function RecipeDetailPage() {
             {recipe.ratings.map((r: any) => (
               <div key={r.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                 <div className="text-2xl">
-                  {r.user_name === 'Trevor' ? '👨‍🍳' : '👩‍🍳'}
+                  {r.user_name === 'Lewis' ? '👨‍🍳' : '👩‍🍳'}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">

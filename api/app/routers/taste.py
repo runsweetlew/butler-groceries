@@ -10,7 +10,7 @@ from app.models import User
 from app.schemas import TasteProfileOut
 from app.services.taste_learner import get_taste_profile, generate_insights, update_taste_profile
 
-logger = logging.getLogger("dukecook.routers.taste")
+logger = logging.getLogger("butlergroceries.routers.taste")
 router = APIRouter(prefix="/api/taste", tags=["taste"])
 
 
@@ -66,11 +66,11 @@ async def get_insights(user_id: int, db: AsyncSession = Depends(get_db)):
 async def compare_profiles(db: AsyncSession = Depends(get_db)):
     """Compare taste profiles between both users.
 
-    Shows where Trevor and Emily agree and disagree.
+    Shows where the Butler family agree and disagree.
     """
     logger.info("Comparing taste profiles")
 
-    # Compare only the couple (Trevor & Emily)
+    # Compare only the couple (the Butler family)
     COUPLE_IDS = [1, 2]
     users_result = await db.execute(select(User).where(User.id.in_(COUPLE_IDS)).order_by(User.id))
     users = users_result.scalars().all()

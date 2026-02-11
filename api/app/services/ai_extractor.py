@@ -10,7 +10,7 @@ from typing import Optional
 import anthropic
 from app.config import get_settings
 
-logger = logging.getLogger("dukecook.services.ai_extractor")
+logger = logging.getLogger("butlergroceries.services.ai_extractor")
 
 
 async def extract_recipe_from_html(html: str, url: str) -> Optional[dict]:

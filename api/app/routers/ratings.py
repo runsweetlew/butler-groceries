@@ -15,7 +15,7 @@ from app.models import Rating, Recipe, User, MealPlan
 from app.schemas import RatingCreate, RatingOut
 from app.services.taste_learner import update_taste_profile, record_cooking
 
-logger = logging.getLogger("dukecook.routers.ratings")
+logger = logging.getLogger("butlergroceries.routers.ratings")
 router = APIRouter(prefix="/api/ratings", tags=["ratings"])
 
 

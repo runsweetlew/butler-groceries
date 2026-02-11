@@ -1,7 +1,7 @@
 {
-  "name": "DukeCook",
-  "short_name": "DukeCook",
-  "description": "Recipe & Meal Planning for Trevor & Emily",
+  "name": "Butler Groceries",
+  "short_name": "Butler Groceries",
+  "description": "Recipe & Meal Planning for the Butler family",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFF8F0",

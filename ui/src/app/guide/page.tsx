@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const STEPS = [
   {
-    title: "Welcome to DukeCook! 🍳",
+    title: "Welcome to Butler Groceries! 🍳",
     icon: "👋",
     content: (
       <div className="space-y-3">
-        <p>DukeCook is your personal recipe & meal planning assistant — built just for the two of you.</p>
+        <p>Butler Groceries is your personal recipe & meal planning assistant — built just for the two of you.</p>
         <p>Here&apos;s what you can do:</p>
         <ul className="space-y-2 ml-4">
           <li>📥 <strong>Import recipes</strong> from any website</li>
@@ -50,7 +50,7 @@ const STEPS = [
     icon: "📏",
     content: (
       <div className="space-y-3">
-        <p>Tell DukeCook your dietary preferences. These rules guide all meal suggestions.</p>
+        <p>Tell Butler Groceries your dietary preferences. These rules guide all meal suggestions.</p>
         <div className="card p-4 bg-brand-50">
           <p className="font-semibold mb-2">Pre-loaded rules:</p>
           <ul className="space-y-1 ml-4">
@@ -135,13 +135,13 @@ const STEPS = [
     icon: "⭐",
     content: (
       <div className="space-y-3">
-        <p>After cooking, <strong>both of you rate the recipe independently</strong>. This is what makes DukeCook get smarter!</p>
+        <p>After cooking, <strong>both of you rate the recipe independently</strong>. This is what makes Butler Groceries get smarter!</p>
         <div className="card p-4 bg-brand-50">
           <p className="font-semibold mb-2">Rating details:</p>
           <ul className="space-y-1 ml-4">
             <li>⭐ Rate 1-5 stars</li>
             <li>🔄 Would you make it again?</li>
-            <li>📝 Add notes (&quot;needs more garlic&quot;, &quot;Emily loved it&quot;)</li>
+            <li>📝 Add notes (&quot;needs more garlic&quot;, &quot;Partner loved it&quot;)</li>
             <li>🧠 Ratings feed into the AI taste learner</li>
             <li>👫 See both ratings on the recipe page</li>
           </ul>
@@ -156,7 +156,7 @@ const STEPS = [
     icon: "🧠",
     content: (
       <div className="space-y-3">
-        <p>Over time, DukeCook builds a <strong>taste profile</strong> for each of you based on your ratings.</p>
+        <p>Over time, Butler Groceries builds a <strong>taste profile</strong> for each of you based on your ratings.</p>
         <div className="card p-4 bg-brand-50">
           <p className="font-semibold mb-2">What it tracks:</p>
           <ul className="space-y-1 ml-4">

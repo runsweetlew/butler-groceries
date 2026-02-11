@@ -18,7 +18,7 @@ const translations: Record<string, Record<Locale, string>> = {
   'signed_in_as': { en: 'Signed in as', es: 'Conectado como' },
 
   // ── Home Page ──
-  'home.welcome': { en: 'Welcome to DukeCook 🍳', es: 'Bienvenido a DukeCook 🍳' },
+  'home.welcome': { en: 'Welcome to Butler Groceries 🍳', es: 'Bienvenido a Butler Groceries 🍳' },
   'home.subtitle': { en: 'Your personal recipe & meal planning assistant', es: 'Tu asistente personal de recetas y planificación de comidas' },
   'home.recipes': { en: 'Recipes', es: 'Recetas' },
   'home.open_nights': { en: 'Open Nights', es: 'Noches Libres' },
@@ -75,19 +75,16 @@ const translations: Record<string, Record<Locale, string>> = {
   'wholefoods.open': { en: 'Open Whole Foods', es: 'Abrir Whole Foods' },
   'wholefoods.desc': { en: 'Search each ingredient on Amazon Whole Foods for delivery', es: 'Busca cada ingrediente en Amazon Whole Foods para entrega' },
 
-  // ── Kroger ──
-  'kroger.title': { en: 'Kroger', es: 'Kroger' },
-  'kroger.connected': { en: 'Connected', es: 'Conectado' },
-  'kroger.connect_desc': { en: 'Connect your Kroger account to add ingredients to your cart with one tap.', es: 'Conecta tu cuenta de Kroger para agregar ingredientes a tu carrito con un toque.' },
-  'kroger.connect_btn': { en: '🔗 Connect Kroger Account', es: '🔗 Conectar Cuenta Kroger' },
-  'kroger.add_all': { en: '🛒 Add All to Kroger Cart', es: '🛒 Agregar Todo al Carrito' },
-  'kroger.adding': { en: '⏳ Adding to cart...', es: '⏳ Agregando al carrito...' },
-  'kroger.items': { en: 'items', es: 'artículos' },
-  'kroger.open_cart': { en: '🛒 Open Kroger Cart', es: '🛒 Abrir Carrito Kroger' },
-  'kroger.open_cart_short': { en: '🛒 Open Cart', es: '🛒 Abrir Carrito' },
-  'kroger.not_found': { en: 'Not found', es: 'No encontrado' },
-  'kroger.tap_item': { en: 'Tap any item to view on Kroger · Items also sent to your Kroger cart via API', es: 'Toca cualquier artículo para ver en Kroger · Los artículos también se envían a tu carrito' },
-  'kroger.auto_match': { en: 'Auto-matches ingredients → adds to your Kroger cart for pickup/delivery', es: 'Busca ingredientes automáticamente → los agrega a tu carrito de Kroger' },
+  // ── Meijer ──
+  'meijer.title': { en: 'Meijer', es: 'Meijer' },
+  'meijer.connected': { en: 'Connected', es: 'Conectado' },
+  'meijer.connect_desc': { en: 'Configure your Meijer auth token to add ingredients to your shopping list.', es: 'Configura tu token de Meijer para agregar ingredientes a tu lista de compras.' },
+  'meijer.add_all': { en: '🛒 Add All to Meijer List', es: '🛒 Agregar Todo a Lista Meijer' },
+  'meijer.adding': { en: '⏳ Adding to list...', es: '⏳ Agregando a la lista...' },
+  'meijer.items': { en: 'items', es: 'artículos' },
+  'meijer.not_found': { en: 'Not found', es: 'No encontrado' },
+  'meijer.tap_item': { en: 'Tap any item to search on Meijer', es: 'Toca cualquier artículo para buscar en Meijer' },
+  'meijer.auto_match': { en: 'Auto-matches ingredients → adds to your Meijer shopping list', es: 'Busca ingredientes automáticamente → los agrega a tu lista de Meijer' },
 
   // ── Recipes List ──
   'recipes.title': { en: 'Recipes', es: 'Recetas' },
@@ -123,7 +120,7 @@ const translations: Record<string, Record<Locale, string>> = {
   'shopping.items_remaining': { en: 'items remaining', es: 'artículos restantes' },
   'shopping.all_done': { en: 'All done! 🎉', es: '¡Todo listo! 🎉' },
   'shopping.no_list': { en: 'No shopping list yet', es: 'Aún no hay lista de compras' },
-  'shopping.shop_kroger': { en: 'Shop at Kroger', es: 'Comprar en Kroger' },
+  'shopping.shop_meijer': { en: 'Shop at Meijer', es: 'Comprar en Meijer' },
 
   // ── Swipe ──
   'swipe.title': { en: 'Swipe Night', es: 'Noche de Deslizar' },
@@ -192,7 +189,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
   useEffect(() => {
-    const saved = document.cookie.match(/dukecook_lang=(\w+)/);
+    const saved = document.cookie.match(/butlergroceries_lang=(\w+)/);
     if (saved && (saved[1] === 'en' || saved[1] === 'es')) {
       setLocaleState(saved[1] as Locale);
     }
@@ -200,7 +197,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const setLocale = (l: Locale) => {
     setLocaleState(l);
-    document.cookie = `dukecook_lang=${l};path=/;max-age=31536000`;
+    document.cookie = `butlergroceries_lang=${l};path=/;max-age=31536000`;
   };
 
   const t = (key: string, fallback?: string): string => {

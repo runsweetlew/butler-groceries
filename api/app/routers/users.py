@@ -9,7 +9,7 @@ from app.database import get_db
 from app.models import User
 from app.schemas import UserOut
 
-logger = logging.getLogger("dukecook.routers.users")
+logger = logging.getLogger("butlergroceries.routers.users")
 router = APIRouter(prefix="/api/users", tags=["users"])
 
 

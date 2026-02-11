@@ -15,7 +15,7 @@ from app.models import (
 )
 from app.services.ai_extractor import generate_taste_insights
 
-logger = logging.getLogger("dukecook.services.taste_learner")
+logger = logging.getLogger("butlergroceries.services.taste_learner")
 
 
 async def update_taste_profile(db: AsyncSession, user_id: int) -> dict:

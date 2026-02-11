@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_
 from app.models import DietaryRule, MealPlan, Recipe, RecipeTag, Tag, CookingHistory
 
-logger = logging.getLogger("dukecook.services.rules_engine")
+logger = logging.getLogger("butlergroceries.services.rules_engine")
 
 
 async def get_active_rules(db: AsyncSession) -> list[DietaryRule]:

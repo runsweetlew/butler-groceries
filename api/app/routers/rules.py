@@ -15,7 +15,7 @@ from app.models import DietaryRule
 from app.schemas import RuleCreate, RuleUpdate, RuleOut, RuleEvaluation
 from app.services.rules_engine import evaluate_rules, get_rule_status_for_week
 
-logger = logging.getLogger("dukecook.routers.rules")
+logger = logging.getLogger("butlergroceries.routers.rules")
 router = APIRouter(prefix="/api/rules", tags=["rules"])
 
 
@@ -104,7 +104,7 @@ async def parse_natural_language_rule(data: NaturalLanguageRule):
 
     logger.info(f"Parsing natural language rule: {data.text!r}")
 
-    prompt = f"""You are a dietary rule parser for a meal planning app called DukeCook.
+    prompt = f"""You are a dietary rule parser for a meal planning app called Butler Groceries.
 
 Convert the user's natural language rule into a structured JSON rule. The app supports these rule types:
 

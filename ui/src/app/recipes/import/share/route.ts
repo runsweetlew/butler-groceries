@@ -23,9 +23,9 @@ export async function POST(request: NextRequest) {
       const file = photos[0] as File;
       const apiFormData = new FormData();
       apiFormData.append('file', file);
-      apiFormData.append('user_id', '1'); // Default to Trevor for share imports
+      apiFormData.append('user_id', '1'); // Default to Lewis for share imports
       
-      const apiUrl = process.env.API_INTERNAL_URL || 'http://dukecook-api:8080';
+      const apiUrl = process.env.API_INTERNAL_URL || 'http://butlergroceries-api:8080';
       const response = await fetch(`${apiUrl}/api/recipes/import/photo`, {
         method: 'POST',
         body: apiFormData,

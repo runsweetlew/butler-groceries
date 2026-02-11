@@ -15,7 +15,7 @@ from app.models import (
     ShoppingList, ShoppingItem, PantryStaple,
 )
 
-logger = logging.getLogger("dukecook.services.shopping_generator")
+logger = logging.getLogger("butlergroceries.services.shopping_generator")
 
 # Default aisle mapping by ingredient category
 CATEGORY_TO_AISLE = {

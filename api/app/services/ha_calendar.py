@@ -12,7 +12,7 @@ import httpx
 
 from app.config import get_settings
 
-logger = logging.getLogger("dukecook.services.ha_calendar")
+logger = logging.getLogger("butlergroceries.services.ha_calendar")
 
 # Events during this window suggest "eating out" / busy evening
 DINNER_WINDOW_START = time(17, 0)  # 5:00 PM

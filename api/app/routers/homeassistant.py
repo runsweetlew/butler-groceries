@@ -17,7 +17,7 @@ from sqlalchemy import select, func, and_
 from app.database import get_db
 from app.models import MealPlan, Recipe, ShoppingList, ShoppingItem, SwipeMatch, SwipeSession, Rating, CookingHistory
 
-logger = logging.getLogger("dukecook.routers.homeassistant")
+logger = logging.getLogger("butlergroceries.routers.homeassistant")
 router = APIRouter(prefix="/api/ha", tags=["homeassistant"])
 
 
@@ -272,7 +272,7 @@ async def cooking_stats(db: AsyncSession = Depends(get_db)):
     return {
         "state": f"{total_recipes} recipes",
         "attributes": {
-            "friendly_name": "DukeCook Stats",
+            "friendly_name": "Butler Groceries Stats",
             "icon": "mdi:chef-hat",
             "total_recipes": total_recipes,
             "cooked_this_week": cooked_this_week,
