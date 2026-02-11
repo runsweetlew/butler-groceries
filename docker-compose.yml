@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: dukecook-db
+    environment:
+      POSTGRES_DB: dukecook
+      POSTGRES_USER: dukecook
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dukecook_dev}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dukecook"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  api:
+    build: ./api
+    container_name: dukecook-api
+    environment:
+      DATABASE_URL: postgresql+asyncpg://dukecook:${DB_PASSWORD:-dukecook_dev}@db:5432/dukecook
+      DATABASE_URL_SYNC: postgresql://dukecook:${DB_PASSWORD:-dukecook_dev}@db:5432/dukecook
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      HA_URL: ${HA_URL:-}
+      HA_TOKEN: ${HA_TOKEN:-}
+      HA_CALENDARS: ${HA_CALENDARS:-calendar.trevor_duke_gmail_com,calendar.runsweetlew_gmail_com,calendar.the_house_calendar}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      KROGER_CLIENT_ID: ${KROGER_CLIENT_ID:-}
+      KROGER_CLIENT_SECRET: ${KROGER_CLIENT_SECRET:-}
+      KROGER_STORE_ID: ${KROGER_STORE_ID:-01800661}
+      IMAGE_DIR: /data/images
+    volumes:
+      - /mnt/syn28582/trevor/dukecook/photos:/data/images
+      - ./api/app:/app/app
+    expose:
+      - "8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ui:
+    build: ./ui
+    container_name: dukecook-ui
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: dukecook-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "3080:80"
+    depends_on:
+      - api
+      - ui
+    restart: unless-stopped
+
+volumes:
+  db-data:

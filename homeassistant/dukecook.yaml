@@ -1,0 +1,98 @@
+# DukeCook Home Assistant Integration
+# Sensors and automations for meal planning
+# URL: https://cook.trevorduke.com
+
+command_line:
+  - sensor:
+      name: "DukeCook Tonight"
+      unique_id: dukecook_tonight
+      command: 'curl -s "http://192.168.1.131:8080/api/ha/tonight"'
+      value_template: "{{ value_json.state }}"
+      json_attributes:
+        - attributes
+      scan_interval: 300
+      icon: mdi:silverware-fork-knife
+
+  - sensor:
+      name: "DukeCook Week"
+      unique_id: dukecook_week
+      command: 'curl -s "http://192.168.1.131:8080/api/ha/week-summary"'
+      value_template: "{{ value_json.state }}"
+      json_attributes:
+        - attributes
+      scan_interval: 600
+      icon: mdi:calendar-week
+
+  - sensor:
+      name: "DukeCook Shopping"
+      unique_id: dukecook_shopping
+      command: 'curl -s "http://192.168.1.131:8080/api/ha/shopping-count"'
+      value_template: "{{ value_json.state }}"
+      json_attributes:
+        - attributes
+      scan_interval: 120
+      icon: mdi:cart
+
+  - sensor:
+      name: "DukeCook Stats"
+      unique_id: dukecook_stats
+      command: 'curl -s "http://192.168.1.131:8080/api/ha/stats"'
+      value_template: "{{ value_json.state }}"
+      json_attributes:
+        - attributes
+      scan_interval: 3600
+      icon: mdi:chart-bar
+
+automation:
+  - id: dukecook_dinner_reminder
+    alias: "DukeCook: Dinner Reminder"
+    trigger:
+      - platform: time
+        at: "16:00:00"
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.dukecook_tonight
+            state: "Nothing planned"
+    action:
+      - action: notify.mobile_app_trevors_iphone
+        data:
+          title: "🍳 Tonight's Dinner"
+          message: "{{ states('sensor.dukecook_tonight') }}"
+          data:
+            url: "https://cook.trevorduke.com"
+
+  - id: dukecook_no_dinner_planned
+    alias: "DukeCook: No Dinner Planned"
+    trigger:
+      - platform: time
+        at: "14:00:00"
+    condition:
+      - condition: state
+        entity_id: sensor.dukecook_tonight
+        state: "Nothing planned"
+    action:
+      - action: notify.mobile_app_trevors_iphone
+        data:
+          title: "📅 No Dinner Planned Tonight"
+          message: "Open DukeCook to plan or start swiping!"
+          data:
+            url: "https://cook.trevorduke.com/swipe"
+
+  - id: dukecook_shopping_reminder
+    alias: "DukeCook: Weekly Shopping Reminder"
+    trigger:
+      - platform: time
+        at: "10:00:00"
+    condition:
+      - condition: time
+        weekday:
+          - sun
+    action:
+      - action: notify.mobile_app_trevors_iphone
+        data:
+          title: "🛒 Shopping List Ready"
+          message: "{{ states('sensor.dukecook_shopping') }}"
+          data:
+            url: "https://cook.trevorduke.com/shopping"
